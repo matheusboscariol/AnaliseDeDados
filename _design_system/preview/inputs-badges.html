@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage {
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    padding: 24px;
+    background: #11131A;
+    border: 1px solid #272A33;
+    border-radius: 12px;
+  }
+  .input {
+    background: #1A1D26;
+    border: 1px solid #272A33;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #F5F6F8;
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    width: 220px;
+  }
+  .input::placeholder { color: #71747E; }
+  .input.focus { outline: none; border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge.accent { background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); color: #60A5FA; }
+  .badge.neutral { background: #1A1D26; border: 1px solid #272A33; color: #A1A4AE; }
+  .badge.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10B981; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+  .lbl { font-family: 'Geist Mono', monospace; font-size: 10px; color: #71747E; text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">05 ·</span> Input &amp; badges</div>
+  <div class="stage">
+    <input class="input" placeholder="seu@email.com" />
+    <input class="input focus" value="matheus@empresa.com" />
+  </div>
+  <div class="stage">
+    <span class="badge accent"><span class="dot"></span>Live</span>
+    <span class="badge neutral">v2.0</span>
+    <span class="badge success">Online</span>
+    <span class="badge accent">IA + Automação</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .row { display: grid; grid-template-columns: 160px 1fr; gap: 28px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #272A33; }
+  .row:last-child { border-bottom: none; }
+  .meta { font-family: 'Geist Mono', monospace; font-size: 10px; color: #71747E; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.6; }
+  .meta strong { color: #A1A4AE; display: block; font-size: 11px; font-weight: 500; text-transform: none; letter-spacing: 0; margin-bottom: 2px; }
+  .h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+  .h2 .grad {
+    background: linear-gradient(135deg, #F5F6F8 0%, #3B82F6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .h3 { font-size: 20px; font-weight: 600; line-height: 1.3; }
+  .h3 .ac { color: #60A5FA; }
+  .body-lg { font-size: 18px; font-weight: 400; line-height: 1.65; color: #A1A4AE; }
+  .body-lg a { color: #60A5FA; text-decoration: none; border-bottom: 1px solid rgba(96,165,250,0.4); }
+  .body { font-size: 16px; font-weight: 400; line-height: 1.65; }
+  .body code { font-family: 'Geist Mono', monospace; font-size: 0.875em; background: #1A1D26; border: 1px solid #272A33; padding: 2px 6px; border-radius: 4px; color: #60A5FA; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">03 ·</span> Headings &amp; body</div>
+  <div class="row">
+    <div class="meta"><strong>H2</strong>24-28px · 600 · gradient</div>
+    <div class="h2">Um caminho claro, <span class="grad">em 5 etapas.</span></div>
+  </div>
+  <div class="row">
+    <div class="meta"><strong>H3</strong>20px · 600 · accent word</div>
+    <div class="h3">Processos, tecnologia e <span class="ac">IA</span></div>
+  </div>
+  <div class="row">
+    <div class="meta"><strong>Body-lg</strong>18px · 400 · accent link</div>
+    <div class="body-lg">Ajudo fundadores e líderes a transformar planos em <a>resultados reais</a>.</div>
+  </div>
+  <div class="row">
+    <div class="meta"><strong>Body</strong>16px · 400 · inline code</div>
+    <div class="body">Tokens definidos em <code>--accent-mid</code> e <code>--accent-bright</code>.</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 200" width="540" height="200">
+  <title>MSB · Geometric Monogram (Concept 1)</title>
+  <desc>Concept 1 — three overlapping circular nodes (M · S · B) merged into a unified monogram. Same node vocabulary as the pipeline mark, but composed as one form instead of a flow.</desc>
+
+  
+  <circle cx="105" cy="100" r="42" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"></circle>
+
+  
+  <circle cx="170" cy="100" r="50" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.5"></circle>
+
+  
+  <circle cx="235" cy="100" r="42" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"></circle>
+
+  
+  <path d="M 88 120 Q 88 80 88 80 Q 88 78 90 78 Q 92 78 93 80 L 105 102 L 117 80 Q 118 78 120 78 Q 122 78 122 80 Q 122 80 122 120" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  
+  <path d="M 184 82 Q 178 74 170 74 Q 156 74 156 88 Q 156 100 170 102 Q 184 104 184 116 Q 184 128 170 128 Q 162 128 156 122" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  
+  <path d="M 222 80 L 222 120 L 240 120 Q 252 120 252 110 Q 252 102 244 100 Q 252 98 252 90 Q 252 80 240 80 Z" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <line x1="222" y1="100" x2="244" y2="100" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round"></line>
+
+  
+  <circle cx="200" cy="100" r="3" fill="#60A5FA"></circle>
+  <circle cx="140" cy="100" r="3" fill="#60A5FA"></circle>
+
+  
+  <text x="305" y="92" font-family="Geist, Inter, sans-serif" font-size="20" font-weight="600" fill="#F5F6F8" letter-spacing="-0.5">Matheus</text>
+  <text x="305" y="114" font-family="Geist, Inter, sans-serif" font-size="20" font-weight="600" fill="#F5F6F8" letter-spacing="-0.5">Boscariol</text>
+</svg>

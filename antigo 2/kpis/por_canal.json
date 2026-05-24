@@ -1,0 +1,18 @@
+[
+  {
+    "canal": "ecommerce",
+    "receita": 28805.69,
+    "receita_fmt": "R$ 28.805,69",
+    "pedidos": 47,
+    "qtd": 91,
+    "participacao_pct": 57.4
+  },
+  {
+    "canal": "loja_fisica",
+    "receita": 21363.74,
+    "receita_fmt": "R$ 21.363,74",
+    "pedidos": 33,
+    "qtd": 65,
+    "participacao_pct": 42.6
+  }
+]

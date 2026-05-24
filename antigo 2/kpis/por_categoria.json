@@ -1,0 +1,82 @@
+[
+  {
+    "categoria": "Eletrônicos",
+    "receita": 14042.87,
+    "receita_fmt": "R$ 14.042,87",
+    "pedidos": 10,
+    "qtd": 17,
+    "ticket_medio_fmt": "R$ 1.404,29"
+  },
+  {
+    "categoria": "Moda",
+    "receita": 8031.07,
+    "receita_fmt": "R$ 8.031,07",
+    "pedidos": 13,
+    "qtd": 30,
+    "ticket_medio_fmt": "R$ 617,77"
+  },
+  {
+    "categoria": "Beleza",
+    "receita": 7276.1,
+    "receita_fmt": "R$ 7.276,10",
+    "pedidos": 8,
+    "qtd": 19,
+    "ticket_medio_fmt": "R$ 909,51"
+  },
+  {
+    "categoria": "Acessórios",
+    "receita": 5697.94,
+    "receita_fmt": "R$ 5.697,94",
+    "pedidos": 11,
+    "qtd": 17,
+    "ticket_medio_fmt": "R$ 517,99"
+  },
+  {
+    "categoria": "Casa",
+    "receita": 4457.45,
+    "receita_fmt": "R$ 4.457,45",
+    "pedidos": 15,
+    "qtd": 31,
+    "ticket_medio_fmt": "R$ 297,16"
+  },
+  {
+    "categoria": "Áudio",
+    "receita": 4423.47,
+    "receita_fmt": "R$ 4.423,47",
+    "pedidos": 2,
+    "qtd": 6,
+    "ticket_medio_fmt": "R$ 2.211,74"
+  },
+  {
+    "categoria": "Informática",
+    "receita": 2549.74,
+    "receita_fmt": "R$ 2.549,74",
+    "pedidos": 5,
+    "qtd": 8,
+    "ticket_medio_fmt": "R$ 509,95"
+  },
+  {
+    "categoria": "Games",
+    "receita": 1912.5,
+    "receita_fmt": "R$ 1.912,50",
+    "pedidos": 12,
+    "qtd": 20,
+    "ticket_medio_fmt": "R$ 159,38"
+  },
+  {
+    "categoria": "Esporte",
+    "receita": 1453.3,
+    "receita_fmt": "R$ 1.453,30",
+    "pedidos": 3,
+    "qtd": 7,
+    "ticket_medio_fmt": "R$ 484,43"
+  },
+  {
+    "categoria": "Cozinha",
+    "receita": 324.99,
+    "receita_fmt": "R$ 324,99",
+    "pedidos": 1,
+    "qtd": 1,
+    "ticket_medio_fmt": "R$ 324,99"
+  }
+]

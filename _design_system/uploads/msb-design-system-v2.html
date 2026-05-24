@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MSB · Design System v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Backgrounds */
+    --bg-primary: #0A0B0F;
+    --bg-secondary: #11131A;
+    --bg-tertiary: #1A1D26;
+    --border-subtle: #272A33;
+    --border-default: #3F4350;
+
+    /* Text */
+    --text-primary: #F5F6F8;
+    --text-secondary: #A1A4AE;
+    --text-muted: #71747E;
+
+    /* Accent — azul escuro técnico */
+    --accent-primary: #1E3A8A;
+    --accent-mid: #2563EB;
+    --accent-hover: #3B82F6;
+    --accent-bright: #60A5FA;
+    --accent-subtle: #2563EB1A;
+    --accent-glow: #2563EB40;
+
+    /* Feedback */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
+
+    /* Type */
+    --font-sans: 'Geist', 'Inter', system-ui, sans-serif;
+    --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent-mid); color: white; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 640px) { .container { padding: 0 24px; } }
+
+  /* ============ NAV ============ */
+  .ds-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 11, 15, 0.72);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .ds-nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .ds-nav-brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 500;
+    color: var(--text-primary);
+  }
+  .ds-nav-brand .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-mid);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .ds-nav-links { display: flex; gap: 4px; font-family: var(--font-mono); font-size: 12px; }
+  .ds-nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    padding: 6px 10px; border-radius: 6px;
+    transition: color 200ms var(--ease), background 200ms var(--ease);
+  }
+  .ds-nav-links a:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+  @media (max-width: 720px) { .ds-nav-links { display: none; } }
+
+  /* ============ HERO ============ */
+  .doc-hero {
+    position: relative;
+    padding: 120px 0 80px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .doc-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--accent-subtle), transparent 70%);
+    pointer-events: none;
+  }
+  .doc-hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.25;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent 80%);
+    pointer-events: none;
+  }
+  .doc-hero-inner { position: relative; z-index: 1; max-width: 820px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 500;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+  .eyebrow .bar { width: 24px; height: 1px; background: var(--accent-bright); }
+
+  .doc-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+  }
+  .doc-title .grad {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-hover) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .doc-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.65;
+    margin: 0 0 32px;
+  }
+  .doc-meta {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .doc-meta span strong { color: var(--text-secondary); font-weight: 500; margin-right: 6px; }
+
+  .ds-index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 40px;
+  }
+  @media (max-width: 800px) { .ds-index-grid { grid-template-columns: 1fr; } }
+  .ds-index-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    transition: all 200ms var(--ease);
+    font-size: 13px;
+  }
+  .ds-index-card:hover {
+    border-color: var(--accent-mid);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 1px var(--accent-glow), 0 0 32px -8px var(--accent-glow);
+  }
+  .ds-index-card .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-bright);
+    min-width: 24px;
+  }
+
+  /* ============ SECTION ============ */
+  section.ds-section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  @media (max-width: 640px) { section.ds-section { padding: 64px 0; } }
+
+  .section-head { margin-bottom: 48px; max-width: 720px; }
+  .section-head h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .section-head p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* ============ LOGO SHOWCASE ============ */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .logo-grid { grid-template-columns: 1fr; } }
+
+  .logo-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .logo-card-stage {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 64px 32px;
+    background:
+      radial-gradient(circle at 50% 50%, var(--accent-subtle), transparent 60%),
+      var(--bg-primary);
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-card-stage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.15;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent 80%);
+    pointer-events: none;
+  }
+  .logo-card-stage > * { position: relative; z-index: 1; }
+  .logo-card-label {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-subtle);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo-card-label span:last-child { color: var(--text-secondary); }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media (max-width: 800px) { .logo-row { grid-template-columns: repeat(2, 1fr); } }
+
+  .logo-mini {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 32px 16px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px;
+    background: var(--bg-secondary);
+    aspect-ratio: 1 / 1;
+    text-align: center;
+  }
+  .logo-mini.light { background: #F5F6F8; }
+  .logo-mini .cap {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .logo-mini.light .cap { color: #71747E; }
+
+  /* ============ COLOR PALETTE ============ */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) { .color-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .color-grid { grid-template-columns: 1fr; } }
+
+  .color-group-title {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .color-group-title .bar { width: 16px; height: 1px; background: var(--accent-bright); }
+  .color-group { margin-bottom: 32px; }
+
+  .color-swatch {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-secondary);
+    transition: transform 200ms var(--ease), border-color 200ms var(--ease);
+  }
+  .color-swatch:hover { transform: translateY(-2px); border-color: var(--border-default); }
+  .color-chip {
+    height: 96px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .color-info { padding: 14px 16px; }
+  .color-info .token {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  .color-info .hex {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .color-info .use {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .feedback-row {
+    padding: 20px 24px;
+    border: 1px dashed var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+  .feedback-row .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .feedback-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+  }
+  .feedback-pill .ball { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ============ TYPOGRAPHY ============ */
+  .type-stack > div {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: baseline;
+  }
+  @media (max-width: 800px) { .type-stack > div { grid-template-columns: 1fr; gap: 8px; } }
+  .type-stack > div:last-child { border-bottom: none; }
+  .type-stack .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+  }
+  .type-stack .meta strong {
+    color: var(--text-secondary); display: block;
+    font-size: 12px; font-weight: 500;
+    margin-bottom: 2px;
+    text-transform: none; letter-spacing: 0;
+  }
+
+  .t-display { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.05; }
+  .t-h1 { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+  .t-h2 { font-size: clamp(1.5rem, 3vw, 1.75rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+  .t-h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+  .t-body-lg { font-size: 1.125rem; font-weight: 400; line-height: 1.65; color: var(--text-secondary); }
+  .t-body { font-size: 1rem; font-weight: 400; line-height: 1.65; }
+  .t-small { font-size: 0.875rem; font-weight: 400; line-height: 1.6; color: var(--text-secondary); }
+  .t-caption { font-size: 0.75rem; font-weight: 500; line-height: 1.5; color: var(--text-muted); }
+  .t-stat {
+    font-family: var(--font-mono);
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .t-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-bright);
+  }
+
+  /* ============ SPACING ============ */
+  .space-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .space-row:last-child { border-bottom: none; }
+  .space-row .token { font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); width: 80px; }
+  .space-row .px { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); width: 60px; }
+  .space-row .bar { height: 8px; background: var(--accent-mid); border-radius: 2px; opacity: 0.7; }
+
+  /* ============ COMPONENTS ============ */
+  .comp-grid { display: grid; gap: 24px; }
+  .comp-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    overflow: hidden;
+  }
+  .comp-stage {
+    padding: 48px;
+    background:
+      linear-gradient(var(--border-subtle) 1px, transparent 1px) 0 0 / 32px 32px,
+      linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px) 0 0 / 32px 32px,
+      var(--bg-primary);
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center;
+    min-height: 180px;
+    position: relative;
+  }
+  .comp-stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--bg-primary);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .comp-stage > * { position: relative; z-index: 1; }
+  .comp-foot {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .comp-foot strong { color: var(--text-secondary); font-weight: 500; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 200ms var(--ease);
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .btn .arrow { transition: transform 200ms var(--ease); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .btn-primary {
+    background: var(--accent-mid);
+    color: white;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 8px 24px -8px var(--accent-glow);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 12px 32px -8px var(--accent-glow);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-default);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--text-muted);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+  }
+  .btn-ghost:hover { color: var(--text-primary); }
+
+  .btn-disabled {
+    background: var(--accent-mid);
+    color: white;
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* CARDS */
+  .feature-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    padding: 28px;
+    max-width: 320px;
+    transition: all 300ms var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: 0 0 0 1px var(--accent-glow), 0 20px 40px -16px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 0% 0%, var(--accent-subtle), transparent 50%);
+    opacity: 0;
+    transition: opacity 300ms var(--ease);
+    pointer-events: none;
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-card .icon {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    color: var(--accent-bright);
+  }
+  .feature-card h4 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .feature-card p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .feature-card .num-badge {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* STAT */
+  .stat-card {
+    text-align: left;
+    padding: 24px 0;
+    border-left: 1px solid var(--border-subtle);
+    padding-left: 24px;
+  }
+  .stat-card .num {
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(180deg, var(--text-primary) 0%, var(--accent-hover) 140%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stat-card .lbl {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 10px;
+  }
+
+  /* EYEBROW component */
+  .eyebrow-demo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 500;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .eyebrow-demo .bar { width: 24px; height: 1px; background: var(--accent-bright); }
+
+  /* INPUT */
+  .input-demo {
+    width: 100%;
+    max-width: 360px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    transition: all 200ms var(--ease);
+  }
+  .input-demo::placeholder { color: var(--text-muted); }
+  .input-demo:focus {
+    outline: none;
+    border-color: var(--accent-mid);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--accent-subtle);
+    border: 1px solid color-mix(in srgb, var(--accent-mid) 30%, transparent);
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge.neutral {
+    background: var(--bg-tertiary);
+    border-color: var(--border-subtle);
+    color: var(--text-secondary);
+  }
+
+  /* HERO MOCKUP */
+  .hero-mock {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    background: var(--bg-primary);
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-mock-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-secondary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .hero-mock-bar .dots { display: flex; gap: 6px; }
+  .hero-mock-bar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); }
+  .hero-mock-bar .url {
+    flex: 1; text-align: center;
+    padding: 4px 12px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .hero-mock-site-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hero-mock-stage {
+    position: relative;
+    padding: 80px 32px 100px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero-mock-stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 50% 0%, var(--accent-subtle), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-mock-stage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-mock-stage > * { position: relative; z-index: 1; }
+
+  .hero-mock-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border: 1px solid color-mix(in srgb, var(--accent-mid) 30%, transparent);
+    border-radius: 999px;
+    background: var(--accent-subtle);
+    margin-bottom: 28px;
+  }
+  .hero-mock-eyebrow .live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-bright);
+    box-shadow: 0 0 10px var(--accent-bright);
+    animation: pulse-bg 2s var(--ease) infinite;
+  }
+  @keyframes pulse-bg {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-mock-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 auto 24px;
+    max-width: 760px;
+  }
+  .hero-mock-title .grad {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-hover) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-mock-sub {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .hero-mock-ctas {
+    display: flex; justify-content: center; gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .hero-mock-trust {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .hero-mock-trust span {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-mock-trust .tick { color: var(--accent-bright); }
+
+  /* OG */
+  .og-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 800px) { .og-grid { grid-template-columns: 1fr; } }
+
+  .og-card {
+    aspect-ratio: 1200 / 630;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 48px;
+  }
+  .og-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, var(--accent-subtle), transparent 60%);
+  }
+  .og-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.2;
+    mask-image: radial-gradient(ellipse at 30% 70%, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 70%, black, transparent 70%);
+  }
+  .og-card > * { position: relative; z-index: 1; }
+  .og-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 85%;
+  }
+  .og-title .accent { color: var(--accent-bright); }
+  .og-meta {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .og-meta .brand { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 13px; }
+
+  .favicon-stack { display: flex; flex-direction: column; gap: 12px; }
+  .favicon-row {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 16px;
+    background: var(--bg-secondary);
+  }
+  .favicon-row .ico { display: flex; align-items: center; justify-content: center; }
+  .favicon-row .ico.bg-light { background: white; border-radius: 6px; padding: 4px; }
+  .favicon-row .info { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .favicon-row .info strong { color: var(--text-secondary); display: block; font-size: 12px; }
+
+  /* PRINCIPLES & DO/DONT */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 800px) { .principle-grid { grid-template-columns: 1fr; } }
+  .principle {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    background: var(--bg-secondary);
+  }
+  .principle .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-bright);
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+  }
+  .principle h4 { margin: 0 0 8px; font-size: 1rem; font-weight: 600; }
+  .principle p { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.6; }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .do-dont { grid-template-columns: 1fr; } }
+  .dd-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    background: var(--bg-secondary);
+  }
+  .dd-card .head {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+  .dd-card.do .head { color: var(--success); }
+  .dd-card.dont .head { color: var(--error); }
+  .dd-card ul { margin: 0; padding: 0; list-style: none; }
+  .dd-card li {
+    padding: 8px 0;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-subtle);
+    line-height: 1.5;
+  }
+  .dd-card li:first-child { border-top: none; padding-top: 0; }
+
+  /* FOOTER */
+  footer.ds-footer {
+    padding: 64px 0 48px;
+    background: var(--bg-primary);
+  }
+  .footer-grid {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Token chip */
+  code.tk {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent-bright);
+  }
+
+  section[id] { scroll-margin-top: 80px; }
+
+  /* Animations for logo */
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+  @keyframes dash-flow {
+    to { stroke-dashoffset: -16; }
+  }
+  .anim-pulse { animation: pulse-dot 2.5s var(--ease) infinite; transform-origin: center; transform-box: fill-box; }
+  .anim-dash { animation: dash-flow 2s linear infinite; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="ds-nav">
+  <div class="container ds-nav-inner">
+    <div class="ds-nav-brand">
+      <span class="dot"></span>
+      MSB · Design System
+      <span style="color: var(--text-muted); margin-left: 8px;">v2.0</span>
+    </div>
+    <div class="ds-nav-links">
+      <a href="#logo">Logo</a>
+      <a href="#cores">Cores</a>
+      <a href="#tipografia">Tipografia</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#hero">Hero</a>
+      <a href="#brand-assets">Assets</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="doc-hero">
+  <div class="container doc-hero-inner">
+    <div class="eyebrow"><span class="bar"></span>Design System · v2.0 · Maio 2026</div>
+    <h1 class="doc-title">
+      Sistema visual da<br />
+      <span class="grad">Matheus Boscariol Consultoria.</span>
+    </h1>
+    <p class="doc-subtitle">
+      Identidade construída a partir do briefing: dark-first, sóbria, técnica e com calor humano. A ponte entre estratégia e execução — entre o técnico e o de negócio.
+    </p>
+    <div class="doc-meta">
+      <span><strong>Cliente</strong>Matheus Boscariol (MSB)</span>
+      <span><strong>Stack</strong>Next.js · Tailwind · Vercel</span>
+      <span><strong>Versão</strong>v2.0 · Pipeline + azul</span>
+    </div>
+
+    <div class="ds-index-grid">
+      <a class="ds-index-card" href="#logo"><span class="num">01</span> Logo & pipeline</a>
+      <a class="ds-index-card" href="#cores"><span class="num">02</span> Sistema de cores</a>
+      <a class="ds-index-card" href="#tipografia"><span class="num">03</span> Tipografia</a>
+      <a class="ds-index-card" href="#espacamento"><span class="num">04</span> Espaçamento</a>
+      <a class="ds-index-card" href="#componentes"><span class="num">05</span> Componentes</a>
+      <a class="ds-index-card" href="#hero"><span class="num">06</span> Mockup do hero</a>
+      <a class="ds-index-card" href="#brand-assets"><span class="num">07</span> OG & Favicon</a>
+      <a class="ds-index-card" href="#principios"><span class="num">08</span> Princípios</a>
+      <a class="ds-index-card" href="#do-dont"><span class="num">09</span> Do & Don't</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 · LOGO ============ -->
+<section class="ds-section" id="logo">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>01 · Logo</div>
+      <h2>Pipeline MSB com trilhas de conexão.</h2>
+      <p>Três nós formando um workflow: M (input) → S (processador) → B (output). Linhas finas curvas saem do contorno de cada círculo como portas de entrada/saída, com pontos terminais em azul marcando os endpoints. Inspiração visual: n8n, Make, Linear.</p>
+    </div>
+
+    <div class="logo-grid">
+      <!-- Lockup principal -->
+      <div class="logo-card">
+        <div class="logo-card-stage">
+          <svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width: 460px;">
+            <defs>
+              <linearGradient id="flowMainDS" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.5"/>
+                <stop offset="50%" stop-color="#3B82F6" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.5"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Nó M com inputs -->
+            <path d="M 8 70 Q 28 70 36 78 Q 44 86 50 88" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="8" cy="70" r="3" fill="#3B82F6"/>
+            <path d="M 8 130 Q 28 130 36 122 Q 44 114 50 112" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="8" cy="130" r="3" fill="#3B82F6"/>
+            <circle cx="80" cy="100" r="32" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"/>
+            <path d="M 66 114 Q 66 86 66 86 Q 66 84 68 84 Q 70 84 71 86 L 80 102 L 89 86 Q 90 84 92 84 Q 94 84 94 86 Q 94 86 94 114" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- M → S -->
+            <path d="M 112 90 Q 132 70 156 76 Q 168 80 178 90" fill="none" stroke="url(#flowMainDS)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 4" class="anim-dash"/>
+            <path d="M 112 110 Q 132 130 156 124 Q 168 120 178 110" fill="none" stroke="url(#flowMainDS)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 4" class="anim-dash" style="animation-delay: 0.5s;"/>
+            <line x1="112" y1="100" x2="178" y2="100" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+            <circle cx="135" cy="100" r="3" fill="#60A5FA" class="anim-pulse"/>
+            <circle cx="155" cy="100" r="3" fill="#60A5FA" class="anim-pulse" style="animation-delay: 0.6s;"/>
+
+            <!-- Nó S central -->
+            <circle cx="210" cy="100" r="36" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.5"/>
+            <path d="M 222 86 Q 218 80 210 80 Q 198 80 198 90 Q 198 100 210 102 Q 222 104 222 114 Q 222 124 210 124 Q 202 124 198 118" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- S → B -->
+            <path d="M 246 90 Q 266 70 290 76 Q 302 80 312 90" fill="none" stroke="url(#flowMainDS)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 4" class="anim-dash" style="animation-delay: 0.3s;"/>
+            <path d="M 246 110 Q 266 130 290 124 Q 302 120 312 110" fill="none" stroke="url(#flowMainDS)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 4" class="anim-dash" style="animation-delay: 0.8s;"/>
+            <line x1="246" y1="100" x2="312" y2="100" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+            <circle cx="269" cy="100" r="3" fill="#60A5FA" class="anim-pulse" style="animation-delay: 0.3s;"/>
+            <circle cx="289" cy="100" r="3" fill="#60A5FA" class="anim-pulse" style="animation-delay: 0.9s;"/>
+
+            <!-- Nó B com outputs -->
+            <circle cx="344" cy="100" r="32" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"/>
+            <path d="M 332 84 L 332 116 L 348 116 Q 358 116 358 108 Q 358 102 351 100 Q 358 98 358 92 Q 358 84 348 84 Z" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="332" y1="100" x2="351" y2="100" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 374 88 Q 380 86 388 78 Q 396 70 416 70" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="416" cy="70" r="3" fill="#3B82F6"/>
+            <path d="M 374 112 Q 380 114 388 122 Q 396 130 416 130" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="416" cy="130" r="3" fill="#3B82F6"/>
+            <path d="M 376 100 L 416 100" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="416" cy="100" r="3" fill="#3B82F6"/>
+
+            <!-- Wordmark -->
+            <text x="450" y="92" font-family="Geist, Inter, sans-serif" font-size="20" font-weight="600" fill="#F5F6F8" letter-spacing="-0.5">Matheus</text>
+            <text x="450" y="114" font-family="Geist, Inter, sans-serif" font-size="20" font-weight="600" fill="#F5F6F8" letter-spacing="-0.5">Boscariol</text>
+          </svg>
+        </div>
+        <div class="logo-card-label">
+          <span>Lockup horizontal · pipeline completo</span>
+          <span>Uso principal · site, propostas, apresentações</span>
+        </div>
+      </div>
+
+      <!-- Símbolo isolado -->
+      <div class="logo-card">
+        <div class="logo-card-stage">
+          <svg viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width: 220px;">
+            <circle cx="40" cy="50" r="28" fill="#11131A" stroke="#F5F6F8" stroke-width="2.8"/>
+            <path d="M 28 64 Q 28 36 28 36 Q 28 34 30 34 Q 32 34 33 36 L 40 50 L 47 36 Q 48 34 50 34 Q 52 34 52 36 Q 52 36 52 64" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="72" y1="50" x2="116" y2="50" stroke="#3B82F6" stroke-width="2" opacity="0.9"/>
+            <circle cx="94" cy="50" r="3" fill="#60A5FA" class="anim-pulse"/>
+            <circle cx="140" cy="50" r="31" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.8"/>
+            <path d="M 150 36 Q 146 30 140 30 Q 130 30 130 38 Q 130 46 140 48 Q 150 50 150 58 Q 150 66 140 66 Q 134 66 130 62" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="168" y1="50" x2="212" y2="50" stroke="#3B82F6" stroke-width="2" opacity="0.9"/>
+            <circle cx="190" cy="50" r="3" fill="#60A5FA" class="anim-pulse" style="animation-delay: 0.6s;"/>
+            <circle cx="240" cy="50" r="28" fill="#11131A" stroke="#F5F6F8" stroke-width="2.8"/>
+            <path d="M 230 36 L 230 64 L 246 64 Q 256 64 256 56 Q 256 50 249 48 Q 256 46 256 40 Q 256 32 246 32 Z" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2, 2)"/>
+            <line x1="228" y1="50" x2="247" y2="50" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-card-label">
+          <span>Símbolo isolado · sem trilhas externas</span>
+          <span>Header · footer · uso compacto</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variações -->
+    <div class="logo-row">
+      <!-- Mono branco -->
+      <div class="logo-mini">
+        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <circle cx="40" cy="40" r="22" fill="none" stroke="#F5F6F8" stroke-width="2.5"/>
+          <path d="M 30 52 Q 30 28 30 28 Q 30 26 32 26 Q 33.5 26 34 28 L 40 40 L 46 28 Q 46.5 26 48 26 Q 50 26 50 28 Q 50 28 50 52" fill="none" stroke="#F5F6F8" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="62" y1="40" x2="98" y2="40" stroke="#F5F6F8" stroke-width="2" opacity="0.6"/>
+          <circle cx="80" cy="40" r="2.5" fill="#F5F6F8"/>
+          <circle cx="120" cy="40" r="25" fill="#F5F6F8" stroke="#F5F6F8" stroke-width="2.5"/>
+          <path d="M 128 30 Q 125 26 120 26 Q 112 26 112 32 Q 112 38 120 39 Q 128 40 128 46 Q 128 52 120 52 Q 115 52 112 48" fill="none" stroke="#11131A" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="142" y1="40" x2="178" y2="40" stroke="#F5F6F8" stroke-width="2" opacity="0.6"/>
+          <circle cx="160" cy="40" r="2.5" fill="#F5F6F8"/>
+          <circle cx="200" cy="40" r="22" fill="none" stroke="#F5F6F8" stroke-width="2.5"/>
+          <path d="M 192 28 L 192 52 L 204 52 Q 211 52 211 46 Q 211 42 207 40 Q 211 39 211 35 Q 211 28 204 28 Z" fill="none" stroke="#F5F6F8" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="192" y1="40" x2="207" y2="40" stroke="#F5F6F8" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+        <span class="cap">Mono · branco</span>
+      </div>
+
+      <!-- Azul total -->
+      <div class="logo-mini">
+        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <circle cx="40" cy="40" r="22" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+          <path d="M 30 52 Q 30 28 30 28 Q 30 26 32 26 Q 33.5 26 34 28 L 40 40 L 46 28 Q 46.5 26 48 26 Q 50 26 50 28 Q 50 28 50 52" fill="none" stroke="#3B82F6" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="62" y1="40" x2="98" y2="40" stroke="#3B82F6" stroke-width="2" opacity="0.7"/>
+          <circle cx="80" cy="40" r="2.5" fill="#60A5FA"/>
+          <circle cx="120" cy="40" r="25" fill="#3B82F6" stroke="#3B82F6" stroke-width="2.5"/>
+          <path d="M 128 30 Q 125 26 120 26 Q 112 26 112 32 Q 112 38 120 39 Q 128 40 128 46 Q 128 52 120 52 Q 115 52 112 48" fill="none" stroke="#11131A" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="142" y1="40" x2="178" y2="40" stroke="#3B82F6" stroke-width="2" opacity="0.7"/>
+          <circle cx="160" cy="40" r="2.5" fill="#60A5FA"/>
+          <circle cx="200" cy="40" r="22" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+          <path d="M 192 28 L 192 52 L 204 52 Q 211 52 211 46 Q 211 42 207 40 Q 211 39 211 35 Q 211 28 204 28 Z" fill="none" stroke="#3B82F6" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="192" y1="40" x2="207" y2="40" stroke="#3B82F6" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+        <span class="cap">Azul total</span>
+      </div>
+
+      <!-- Light mode -->
+      <div class="logo-mini light">
+        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <circle cx="40" cy="40" r="22" fill="#F5F6F8" stroke="#0A0B0F" stroke-width="2.5"/>
+          <path d="M 30 52 Q 30 28 30 28 Q 30 26 32 26 Q 33.5 26 34 28 L 40 40 L 46 28 Q 46.5 26 48 26 Q 50 26 50 28 Q 50 28 50 52" fill="none" stroke="#0A0B0F" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="62" y1="40" x2="98" y2="40" stroke="#1E3A8A" stroke-width="2" opacity="0.9"/>
+          <circle cx="80" cy="40" r="2.5" fill="#2563EB"/>
+          <circle cx="120" cy="40" r="25" fill="#1E3A8A" stroke="#1E3A8A" stroke-width="2.5"/>
+          <path d="M 128 30 Q 125 26 120 26 Q 112 26 112 32 Q 112 38 120 39 Q 128 40 128 46 Q 128 52 120 52 Q 115 52 112 48" fill="none" stroke="#F5F6F8" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="142" y1="40" x2="178" y2="40" stroke="#1E3A8A" stroke-width="2" opacity="0.9"/>
+          <circle cx="160" cy="40" r="2.5" fill="#2563EB"/>
+          <circle cx="200" cy="40" r="22" fill="#F5F6F8" stroke="#0A0B0F" stroke-width="2.5"/>
+          <path d="M 192 28 L 192 52 L 204 52 Q 211 52 211 46 Q 211 42 207 40 Q 211 39 211 35 Q 211 28 204 28 Z" fill="none" stroke="#0A0B0F" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="192" y1="40" x2="207" y2="40" stroke="#0A0B0F" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+        <span class="cap">Light mode</span>
+      </div>
+
+      <!-- Favicon S central -->
+      <div class="logo-mini">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40">
+          <circle cx="50" cy="50" r="36" fill="#1E3A8A" stroke="#3B82F6" stroke-width="3"/>
+          <path d="M 60 38 Q 56 33 50 33 Q 40 33 40 41 Q 40 48 50 50 Q 60 52 60 59 Q 60 67 50 67 Q 44 67 40 63" fill="none" stroke="#F5F6F8" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="cap">Favicon · 16-32px</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; padding: 20px 24px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-secondary); font-size: 13px; color: var(--text-secondary); line-height: 1.65;">
+      <strong style="color: var(--text-primary); font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;">Anatomia</strong><br/>
+      <strong style="color: var(--text-primary);">M (input)</strong> → letra arredondada com três trilhas de entrada à esquerda. <strong style="color: var(--text-primary);">S (processador)</strong> → círculo central maior, preenchimento sólido <code class="tk">#1E3A8A</code>, borda em <code class="tk">#3B82F6</code>. <strong style="color: var(--text-primary);">B (output)</strong> → letra arredondada com três trilhas de saída à direita. Conexões em <strong>três camadas</strong>: linha central sólida com bolinhas pulsantes (dados em fluxo) + duas curvas tracejadas animadas (etapas paralelas).
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · CORES ============ -->
+<section class="ds-section" id="cores">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>02 · Cores</div>
+      <h2>Paleta dark-first com azul escuro técnico.</h2>
+      <p>Quatorze tokens cobrem 100% da identidade. O contraste vem da geometria e do respiro — não da saturação. Azul aparece em CTAs, eyebrow text, links e elementos de fluxo. Família de 4 tons permite hierarquia clara entre estados.</p>
+    </div>
+
+    <!-- Backgrounds -->
+    <div class="color-group">
+      <div class="color-group-title"><span class="bar"></span>Backgrounds & superfícies</div>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #0A0B0F;"></div>
+          <div class="color-info">
+            <div class="token">--bg-primary</div>
+            <div class="hex">#0A0B0F</div>
+            <div class="use">Background principal da página.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #11131A;"></div>
+          <div class="color-info">
+            <div class="token">--bg-secondary</div>
+            <div class="hex">#11131A</div>
+            <div class="use">Cards, seções alternadas.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #1A1D26;"></div>
+          <div class="color-info">
+            <div class="token">--bg-tertiary</div>
+            <div class="hex">#1A1D26</div>
+            <div class="use">Hover states, inputs.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #272A33;"></div>
+          <div class="color-info">
+            <div class="token">--border-subtle</div>
+            <div class="hex">#272A33</div>
+            <div class="use">Bordas padrão de cards.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="color-group">
+      <div class="color-group-title"><span class="bar"></span>Texto & hierarquia</div>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #F5F6F8;"></div>
+          <div class="color-info">
+            <div class="token">--text-primary</div>
+            <div class="hex">#F5F6F8</div>
+            <div class="use">Títulos, texto principal.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #A1A4AE;"></div>
+          <div class="color-info">
+            <div class="token">--text-secondary</div>
+            <div class="hex">#A1A4AE</div>
+            <div class="use">Body de apoio, subtítulos.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #71747E;"></div>
+          <div class="color-info">
+            <div class="token">--text-muted</div>
+            <div class="hex">#71747E</div>
+            <div class="use">Labels, captions, meta.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #3F4350;"></div>
+          <div class="color-info">
+            <div class="token">--border-default</div>
+            <div class="hex">#3F4350</div>
+            <div class="use">Bordas com mais presença.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accent — 4 tons -->
+    <div class="color-group">
+      <div class="color-group-title"><span class="bar"></span>Accent · família de 4 tons</div>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #1E3A8A;"></div>
+          <div class="color-info">
+            <div class="token">--accent-primary</div>
+            <div class="hex">#1E3A8A · Blue 900</div>
+            <div class="use">Áreas sólidas grandes (raro). Nó S do logo.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #2563EB;"></div>
+          <div class="color-info">
+            <div class="token">--accent-mid</div>
+            <div class="hex">#2563EB · Blue 600</div>
+            <div class="use">CTAs principais, botões primários.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #3B82F6;"></div>
+          <div class="color-info">
+            <div class="token">--accent-hover</div>
+            <div class="hex">#3B82F6 · Blue 500</div>
+            <div class="use">Hover de CTAs, conectores do logo.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #60A5FA;"></div>
+          <div class="color-info">
+            <div class="token">--accent-bright</div>
+            <div class="hex">#60A5FA · Blue 400</div>
+            <div class="use">Eyebrow text, ícones ativos, destaques.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accent subtle/glow -->
+    <div class="color-group">
+      <div class="color-group-title"><span class="bar"></span>Accent · transparências</div>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #2563EB1A;"></div>
+          <div class="color-info">
+            <div class="token">--accent-subtle</div>
+            <div class="hex">#2563EB1A · 10% opacity</div>
+            <div class="use">Backgrounds translúcidos, eyebrow pill.</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-chip" style="background: #2563EB40;"></div>
+          <div class="color-info">
+            <div class="token">--accent-glow</div>
+            <div class="hex">#2563EB40 · 25% opacity</div>
+            <div class="use">Glow em hover de cards e CTAs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="color-group" style="margin-bottom: 0;">
+      <div class="color-group-title"><span class="bar"></span>Feedback · uso esporádico</div>
+      <div class="feedback-row">
+        <span class="lbl">Apenas em estados funcionais</span>
+        <span class="feedback-pill"><span class="ball" style="background: #10B981;"></span>Success · #10B981</span>
+        <span class="feedback-pill"><span class="ball" style="background: #F59E0B;"></span>Warning · #F59E0B</span>
+        <span class="feedback-pill"><span class="ball" style="background: #EF4444;"></span>Error · #EF4444</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · TIPOGRAFIA ============ -->
+<section class="ds-section" id="tipografia">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>03 · Tipografia</div>
+      <h2>Geist Sans &amp; Geist Mono.</h2>
+      <p>Família tipográfica da Vercel — geométrica, neutra, otimizada para interfaces tech. Sans para títulos e body; Mono para eyebrow, estatísticas, labels e metadados técnicos. Fallback: Inter, JetBrains Mono e system-ui.</p>
+    </div>
+
+    <div class="type-stack">
+      <div>
+        <div class="meta"><strong>text-display</strong>Geist · 600 · clamp(2.5 / 6vw / 4.5rem)</div>
+        <div class="t-display">Crescer com clareza.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-h1</strong>Geist · 600 · clamp(2 / 4vw / 3rem)</div>
+        <div class="t-h1">Marketing, processos e IA.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-h2</strong>Geist · 600 · clamp(1.5 / 3vw / 2rem)</div>
+        <div class="t-h2">A ponte entre o técnico e o de negócio.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-h3</strong>Geist · 600 · 1.25rem</div>
+        <div class="t-h3">Diagnóstico estratégico em 60 minutos.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-body-lg</strong>Geist · 400 · 1.125rem</div>
+        <div class="t-body-lg">Ajudo empresas em crescimento a transformarem estratégia em execução real — com marketing, processos e tecnologia trabalhando como um único sistema.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-body</strong>Geist · 400 · 1rem</div>
+        <div class="t-body">O foco é destravar gargalos práticos: o lead que não vira oportunidade, o processo que depende de uma pessoa, o time que perde tempo em tarefas que IA poderia executar.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-small</strong>Geist · 400 · 0.875rem</div>
+        <div class="t-small">Trabalho em modelo de consultoria recorrente, com diagnóstico inicial gratuito.</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-caption</strong>Geist · 500 · 0.75rem</div>
+        <div class="t-caption">Atualizado em 19/05/2026 · Piracicaba, SP</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-eyebrow</strong>Geist Mono · 500 · 0.75rem · uppercase · 0.08em</div>
+        <div class="t-eyebrow">Consultoria · MKT · Tech · IA</div>
+      </div>
+      <div>
+        <div class="meta"><strong>text-stat</strong>Geist Mono · 600 · clamp(3 / 8vw / 5rem)</div>
+        <div class="t-stat">+47%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · ESPAÇAMENTO ============ -->
+<section class="ds-section" id="espacamento">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>04 · Espaçamento &amp; grid</div>
+      <h2>Múltiplos de 4px. Respiro generoso.</h2>
+      <p>Container max <code class="tk">1200px</code>. Padding lateral <code class="tk">px-6</code> mobile / <code class="tk">px-8</code> desktop. Padding vertical de seção <code class="tk">py-16</code> mobile / <code class="tk">py-24</code> desktop. Na dúvida entre apertar e espaçar — sempre espaçar.</p>
+    </div>
+
+    <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 28px; background: var(--bg-secondary);">
+      <div class="space-row"><span class="token">space-1</span><span class="px">4px</span><div class="bar" style="width: 4px;"></div></div>
+      <div class="space-row"><span class="token">space-2</span><span class="px">8px</span><div class="bar" style="width: 8px;"></div></div>
+      <div class="space-row"><span class="token">space-3</span><span class="px">12px</span><div class="bar" style="width: 12px;"></div></div>
+      <div class="space-row"><span class="token">space-4</span><span class="px">16px</span><div class="bar" style="width: 16px;"></div></div>
+      <div class="space-row"><span class="token">space-6</span><span class="px">24px</span><div class="bar" style="width: 24px;"></div></div>
+      <div class="space-row"><span class="token">space-8</span><span class="px">32px</span><div class="bar" style="width: 32px;"></div></div>
+      <div class="space-row"><span class="token">space-12</span><span class="px">48px</span><div class="bar" style="width: 48px;"></div></div>
+      <div class="space-row"><span class="token">space-16</span><span class="px">64px</span><div class="bar" style="width: 64px;"></div></div>
+      <div class="space-row"><span class="token">space-24</span><span class="px">96px</span><div class="bar" style="width: 96px;"></div></div>
+      <div class="space-row"><span class="token">space-32</span><span class="px">128px</span><div class="bar" style="width: 128px;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · COMPONENTES ============ -->
+<section class="ds-section" id="componentes">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>05 · Componentes</div>
+      <h2>Conjunto base.</h2>
+      <p>Sete componentes cobrem ~90% da landing. Cada um descrito com estados e tokens aplicados. Transições uniformes de 200–300ms com easing <code class="tk">cubic-bezier(0.16, 1, 0.3, 1)</code>.</p>
+    </div>
+
+    <div class="comp-grid">
+      <!-- BUTTONS -->
+      <div class="comp-card">
+        <div class="comp-stage">
+          <button class="btn btn-primary">Agendar diagnóstico <span class="arrow">→</span></button>
+          <button class="btn btn-secondary">Ver casos</button>
+          <button class="btn btn-ghost">Saiba mais →</button>
+          <button class="btn btn-disabled">Indisponível</button>
+        </div>
+        <div class="comp-foot">
+          <span><strong>Button</strong> · primary · secondary · ghost · disabled</span>
+          <span>px-6 py-3 · rounded-lg · transition 200ms</span>
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="comp-card">
+        <div class="comp-stage" style="padding: 48px 32px; align-items: stretch;">
+          <div class="feature-card">
+            <span class="num-badge">01</span>
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+            </div>
+            <h4>Marketing &amp; Crescimento</h4>
+            <p>Funis que geram demanda previsível. Não mídia que queima orçamento sem rastreabilidade.</p>
+          </div>
+          <div class="feature-card">
+            <span class="num-badge">02</span>
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <h4>Processos &amp; Operação</h4>
+            <p>Operação que escala sem depender de uma pessoa. Documentação, SOPs e métricas que importam.</p>
+          </div>
+          <div class="feature-card">
+            <span class="num-badge">03</span>
+            <div class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>
+            </div>
+            <h4>IA &amp; Automação</h4>
+            <p>Onde IA tira trabalho repetitivo do time. Sem hype — com casos práticos e ROI claro.</p>
+          </div>
+        </div>
+        <div class="comp-foot">
+          <span><strong>Card</strong> · feature · com hover glow azul</span>
+          <span>border subtle → accent-mid · shadow accent-glow</span>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="comp-card">
+        <div class="comp-stage" style="padding: 48px 32px;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; width: 100%; max-width: 900px;">
+            <div class="stat-card">
+              <div class="num">+12</div>
+              <div class="lbl">anos integrando<br/>mkt &amp; tecnologia</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">USP</div>
+              <div class="lbl">Ciência da<br/>Computação</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">+30</div>
+              <div class="lbl">projetos<br/>entregues</div>
+            </div>
+            <div class="stat-card">
+              <div class="num">3x</div>
+              <div class="lbl">ROI médio<br/>em 6 meses</div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-foot">
+          <span><strong>Stat</strong> · número mono · gradient sutil azul</span>
+          <span>border-left subtle · label text-secondary</span>
+        </div>
+      </div>
+
+      <!-- EYEBROW + INPUT + BADGE -->
+      <div class="comp-card">
+        <div class="comp-stage" style="flex-direction: column; align-items: flex-start; gap: 32px; padding: 40px;">
+          <div>
+            <div class="eyebrow-demo"><span class="bar"></span>Diagnóstico gratuito · 60min</div>
+            <h3 class="t-h3" style="margin: 12px 0 0;">Eyebrow text + título de seção.</h3>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+            <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent-bright);"></span>Disponível</span>
+            <span class="badge neutral">B2B SaaS</span>
+            <span class="badge neutral">PMEs · 10–200 fte</span>
+          </div>
+          <input class="input-demo" type="email" placeholder="seu@email.com.br" />
+        </div>
+        <div class="comp-foot">
+          <span><strong>Eyebrow · Badge · Input</strong></span>
+          <span>focus ring · accent-subtle · 3px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · HERO MOCKUP ============ -->
+<section class="ds-section" id="hero">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>06 · Hero</div>
+      <h2>Aplicação no hero da landing page.</h2>
+      <p>Tudo junto: grid pattern + radial gradient azul + eyebrow text + título com gradient sutil + dois CTAs (primary &amp; secondary) + trust signals em mono. Logo no header com pipeline simplificado.</p>
+    </div>
+
+    <div class="hero-mock">
+      <div class="hero-mock-bar">
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="url">matheusboscariol.com.br</div>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div class="hero-mock-site-nav">
+        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="130">
+          <circle cx="40" cy="40" r="20" fill="#11131A" stroke="#F5F6F8" stroke-width="2.2"/>
+          <path d="M 31 50 Q 31 30 31 30 Q 31 28.5 32.5 28.5 Q 34 28.5 34.5 30 L 40 41 L 45.5 30 Q 46 28.5 47.5 28.5 Q 49 28.5 49 30 Q 49 30 49 50" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="60" y1="40" x2="98" y2="40" stroke="#3B82F6" stroke-width="1.8"/>
+          <circle cx="79" cy="40" r="2.3" fill="#60A5FA"/>
+          <circle cx="120" cy="40" r="23" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.2"/>
+          <path d="M 127 30 Q 124 27 120 27 Q 113 27 113 32 Q 113 37 120 38 Q 127 39 127 44 Q 127 49 120 49 Q 116 49 113 46" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="142" y1="40" x2="180" y2="40" stroke="#3B82F6" stroke-width="1.8"/>
+          <circle cx="161" cy="40" r="2.3" fill="#60A5FA"/>
+          <circle cx="200" cy="40" r="20" fill="#11131A" stroke="#F5F6F8" stroke-width="2.2"/>
+          <path d="M 193 29 L 193 51 L 204 51 Q 210 51 210 46 Q 210 42 206 40 Q 210 39 210 35 Q 210 29 204 29 Z" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="193" y1="40" x2="206" y2="40" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">Agendar diagnóstico <span class="arrow">→</span></button>
+      </div>
+
+      <div class="hero-mock-stage">
+        <div class="hero-mock-eyebrow">
+          <span class="live-dot"></span>
+          Consultoria · Marketing · Tech · IA
+        </div>
+
+        <h1 class="hero-mock-title">
+          A ponte entre estratégia<br/>
+          e <span class="grad">execução real.</span>
+        </h1>
+
+        <p class="hero-mock-sub">
+          Ajudo empresas em crescimento a integrarem marketing, processos e IA — para crescer com clareza, sem depender de uma pessoa só.
+        </p>
+
+        <div class="hero-mock-ctas">
+          <button class="btn btn-primary">Agendar diagnóstico gratuito <span class="arrow">→</span></button>
+          <button class="btn btn-secondary">Ver como funciona</button>
+        </div>
+
+        <div class="hero-mock-trust">
+          <span><span class="tick">✓</span> Diagnóstico em 60 min</span>
+          <span><span class="tick">✓</span> Sem compromisso</span>
+          <span><span class="tick">✓</span> Resposta em até 24h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · BRAND ASSETS ============ -->
+<section class="ds-section" id="brand-assets">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>07 · Brand assets</div>
+      <h2>Open Graph &amp; Favicon.</h2>
+      <p>Imagem 1200×630 para compartilhamento em LinkedIn, WhatsApp, Twitter. Favicons em múltiplas escalas — todos derivados do nó S central do pipeline.</p>
+    </div>
+
+    <div class="og-grid">
+      <!-- OG IMAGE -->
+      <div class="og-card">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="100">
+            <circle cx="40" cy="40" r="20" fill="none" stroke="#F5F6F8" stroke-width="2.2"/>
+            <path d="M 31 50 Q 31 30 31 30 Q 31 28.5 32.5 28.5 Q 34 28.5 34.5 30 L 40 41 L 45.5 30 Q 46 28.5 47.5 28.5 Q 49 28.5 49 30 Q 49 30 49 50" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="60" y1="40" x2="98" y2="40" stroke="#3B82F6" stroke-width="1.8"/>
+            <circle cx="79" cy="40" r="2.3" fill="#60A5FA"/>
+            <circle cx="120" cy="40" r="23" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.2"/>
+            <path d="M 127 30 Q 124 27 120 27 Q 113 27 113 32 Q 113 37 120 38 Q 127 39 127 44 Q 127 49 120 49 Q 116 49 113 46" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="142" y1="40" x2="180" y2="40" stroke="#3B82F6" stroke-width="1.8"/>
+            <circle cx="161" cy="40" r="2.3" fill="#60A5FA"/>
+            <circle cx="200" cy="40" r="20" fill="none" stroke="#F5F6F8" stroke-width="2.2"/>
+            <path d="M 193 29 L 193 51 L 204 51 Q 210 51 210 46 Q 210 42 206 40 Q 210 39 210 35 Q 210 29 204 29 Z" fill="none" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="193" y1="40" x2="206" y2="40" stroke="#F5F6F8" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="og-title">
+            Marketing, tecnologia e <span class="accent">IA</span><br/>
+            para crescer com clareza.
+          </div>
+        </div>
+
+        <div class="og-meta">
+          <span>matheusboscariol.com.br</span>
+          <span class="brand">→ Diagnóstico gratuito</span>
+        </div>
+      </div>
+
+      <!-- FAVICONS -->
+      <div class="favicon-stack">
+        <div class="favicon-row">
+          <div class="ico">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="48">
+              <circle cx="50" cy="50" r="40" fill="#1E3A8A" stroke="#3B82F6" stroke-width="4"/>
+              <path d="M 62 36 Q 58 30 50 30 Q 38 30 38 40 Q 38 48 50 50 Q 62 52 62 60 Q 62 70 50 70 Q 42 70 38 64" fill="none" stroke="#F5F6F8" stroke-width="4.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info">
+            <strong>192 × 192</strong>
+            PWA · Apple touch icon
+          </div>
+        </div>
+
+        <div class="favicon-row">
+          <div class="ico">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="32">
+              <circle cx="50" cy="50" r="40" fill="#1E3A8A" stroke="#3B82F6" stroke-width="5"/>
+              <path d="M 62 36 Q 58 30 50 30 Q 38 30 38 40 Q 38 48 50 50 Q 62 52 62 60 Q 62 70 50 70 Q 42 70 38 64" fill="none" stroke="#F5F6F8" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info">
+            <strong>32 × 32</strong>
+            Browser tab · Retina
+          </div>
+        </div>
+
+        <div class="favicon-row">
+          <div class="ico">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="16">
+              <circle cx="50" cy="50" r="42" fill="#1E3A8A" stroke="#3B82F6" stroke-width="6"/>
+              <path d="M 62 36 Q 58 30 50 30 Q 38 30 38 40 Q 38 48 50 50 Q 62 52 62 60 Q 62 70 50 70 Q 42 70 38 64" fill="none" stroke="#F5F6F8" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info">
+            <strong>16 × 16</strong>
+            Browser tab · standard
+          </div>
+        </div>
+
+        <div class="favicon-row">
+          <div class="ico bg-light">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="32">
+              <circle cx="50" cy="50" r="40" fill="#1E3A8A" stroke="#1E3A8A" stroke-width="5"/>
+              <path d="M 62 36 Q 58 30 50 30 Q 38 30 38 40 Q 38 48 50 50 Q 62 52 62 60 Q 62 70 50 70 Q 42 70 38 64" fill="none" stroke="#F5F6F8" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info">
+            <strong>Light mode</strong>
+            Para abas de browser claras
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · PRINCÍPIOS ============ -->
+<section class="ds-section" id="principios">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>08 · Princípios</div>
+      <h2>Quatro regras para manter a coerência.</h2>
+      <p>Quando houver dúvida sobre uma decisão visual, voltar aqui antes de inventar.</p>
+    </div>
+
+    <div class="principle-grid">
+      <div class="principle">
+        <div class="num">01 / SOFISTICAÇÃO PELA CONTENÇÃO</div>
+        <h4>Espaço &gt; ornamento.</h4>
+        <p>Cada elemento ganha presença porque há muito ar ao redor. Reduzir antes de adicionar.</p>
+      </div>
+      <div class="principle">
+        <div class="num">02 / COERÊNCIA &gt; CRIATIVIDADE ISOLADA</div>
+        <h4>Sistema antes de ideia genial.</h4>
+        <p>Prefiro um padrão simples e consistente a uma "ideia brilhante" que quebra a unidade.</p>
+      </div>
+      <div class="principle">
+        <div class="num">03 / DARK-FIRST</div>
+        <h4>O escuro é o lugar.</h4>
+        <p>Light mode não é prioridade nesta fase. Todas as decisões otimizadas para dark.</p>
+      </div>
+      <div class="principle">
+        <div class="num">04 / PALETA FECHADA</div>
+        <h4>Não inventar cores.</h4>
+        <p>14 tokens cobrem tudo. Variações vêm de combinação e transparência — não de cores novas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 · DO & DONT ============ -->
+<section class="ds-section" id="do-dont">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><span class="bar"></span>09 · Do &amp; Don't</div>
+      <h2>O que cabe — e o que não cabe — nesta identidade.</h2>
+      <p>Lista direta para validar decisões rápidas. Se algo da lista da direita aparecer, repensar.</p>
+    </div>
+
+    <div class="do-dont">
+      <div class="dd-card do">
+        <div class="head">✓ Faz parte</div>
+        <ul>
+          <li>Background dark com gradient radial azul sutil no hero</li>
+          <li>Grid pattern em opacidade baixa (3–5%) cobrindo seções</li>
+          <li>Eyebrow text em mono uppercase com letter-spacing</li>
+          <li>Hover de cards com border azul + glow sutil</li>
+          <li>Estatísticas em mono com gradient leve</li>
+          <li>Transições uniformes de 200–300ms</li>
+          <li>Ícones outline da Lucide com peso 1.5–2</li>
+          <li>Respiro generoso entre seções (py-24)</li>
+          <li>Logo com trilhas n8n-style em uso completo</li>
+        </ul>
+      </div>
+      <div class="dd-card dont">
+        <div class="head">✗ Não cabe</div>
+        <ul>
+          <li>Gradientes saturados ou cores berrantes</li>
+          <li>Ícones futuristas (hologramas, neon, glitch)</li>
+          <li>Stock photo de pessoas em reunião</li>
+          <li>Selos, emojis, contadores piscando</li>
+          <li>Parallax pesado, partículas, loops animados</li>
+          <li>Áreas grandes preenchidas com Blue 600+</li>
+          <li>Mais de 3 níveis tipográficos por dobra</li>
+          <li>Sombras dramáticas ou bordas grossas</li>
+          <li>Logo com trilhas em escalas pequenas (favicon)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ds-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" width="120">
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#A1A4AE" stroke-width="2"/>
+        <path d="M 32 50 Q 32 30 32 30 Q 32 28.5 33 28.5 Q 34.5 28.5 35 30 L 40 40 L 45 30 Q 45.5 28.5 47 28.5 Q 48 28.5 48 30 Q 48 30 48 50" fill="none" stroke="#A1A4AE" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="58" y1="40" x2="100" y2="40" stroke="#3B82F6" stroke-width="1.5"/>
+        <circle cx="79" cy="40" r="2" fill="#60A5FA"/>
+        <circle cx="120" cy="40" r="22" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2"/>
+        <path d="M 127 30 Q 124 27 120 27 Q 113 27 113 32 Q 113 37 120 38 Q 127 39 127 44 Q 127 49 120 49 Q 116 49 113 46" fill="none" stroke="#F5F6F8" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="142" y1="40" x2="184" y2="40" stroke="#3B82F6" stroke-width="1.5"/>
+        <circle cx="163" cy="40" r="2" fill="#60A5FA"/>
+        <circle cx="200" cy="40" r="18" fill="none" stroke="#A1A4AE" stroke-width="2"/>
+        <path d="M 193 29 L 193 51 L 203 51 Q 209 51 209 46 Q 209 42 205 40 Q 209 39 209 35 Q 209 29 203 29 Z" fill="none" stroke="#A1A4AE" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="193" y1="40" x2="205" y2="40" stroke="#A1A4AE" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="footer-meta">
+      MSB · Design System v2.0 · Maio 2026
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

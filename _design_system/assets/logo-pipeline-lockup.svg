@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 200" width="430" height="200">
+  <title>MSB · Pipeline Lockup</title>
+  <desc>Concept 2 — node/connection pipeline. Three nodes M (input) → S (processor) → B (output) with the wordmark &#34;Matheus Boscariol&#34;.</desc>
+  <defs>
+    <linearGradient id="flow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.5"></stop>
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="1"></stop>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.5"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <path d="M 8 70 Q 28 70 36 78 Q 44 86 50 88" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"></path>
+  <circle cx="8" cy="70" r="3" fill="#3B82F6"></circle>
+  <path d="M 8 130 Q 28 130 36 122 Q 44 114 50 112" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"></path>
+  <circle cx="8" cy="130" r="3" fill="#3B82F6"></circle>
+
+  
+  <circle cx="80" cy="100" r="32" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"></circle>
+  <path d="M 66 114 Q 66 86 66 86 Q 66 84 68 84 Q 70 84 71 86 L 80 102 L 89 86 Q 90 84 92 84 Q 94 84 94 86 Q 94 86 94 114" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  
+  <line x1="112" y1="100" x2="178" y2="100" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" opacity="0.9"></line>
+  <circle cx="135" cy="100" r="3" fill="#60A5FA"></circle>
+  <circle cx="155" cy="100" r="3" fill="#60A5FA"></circle>
+
+  
+  <circle cx="210" cy="100" r="36" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2.5"></circle>
+  <path d="M 222 86 Q 218 80 210 80 Q 198 80 198 90 Q 198 100 210 102 Q 222 104 222 114 Q 222 124 210 124 Q 202 124 198 118" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  
+  <line x1="246" y1="100" x2="312" y2="100" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" opacity="0.9"></line>
+  <circle cx="269" cy="100" r="3" fill="#60A5FA"></circle>
+  <circle cx="289" cy="100" r="3" fill="#60A5FA"></circle>
+
+  
+  <circle cx="344" cy="100" r="32" fill="#11131A" stroke="#F5F6F8" stroke-width="2.5"></circle>
+  <path d="M 332 84 L 332 116 L 348 116 Q 358 116 358 108 Q 358 102 351 100 Q 358 98 358 92 Q 358 84 348 84 Z" fill="none" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <line x1="332" y1="100" x2="351" y2="100" stroke="#F5F6F8" stroke-width="3" stroke-linecap="round"></line>
+
+  
+  <path d="M 374 88 Q 380 86 388 78 Q 396 70 416 70" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"></path>
+  <circle cx="416" cy="70" r="3" fill="#3B82F6"></circle>
+  <path d="M 374 112 Q 380 114 388 122 Q 396 130 416 130" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"></path>
+  <circle cx="416" cy="130" r="3" fill="#3B82F6"></circle>
+  <path d="M 376 100 L 416 100" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.7"></path>
+  <circle cx="416" cy="100" r="3" fill="#3B82F6"></circle>
+
+  
+</svg>

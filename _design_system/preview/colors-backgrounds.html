@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sw { border: 1px solid #272A33; border-radius: 8px; overflow: hidden; background: #11131A; }
+  .chip { height: 64px; border-bottom: 1px solid #272A33; }
+  .info { padding: 10px 12px; }
+  .tok { font-family: 'Geist Mono', monospace; font-size: 11px; color: #F5F6F8; font-weight: 500; }
+  .hex { font-family: 'Geist Mono', monospace; font-size: 10px; color: #71747E; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">02 ·</span> Backgrounds &amp; surfaces</div>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:#0A0B0F"></div><div class="info"><div class="tok">--bg-primary</div><div class="hex">#0A0B0F</div></div></div>
+    <div class="sw"><div class="chip" style="background:#11131A"></div><div class="info"><div class="tok">--bg-secondary</div><div class="hex">#11131A</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1A1D26"></div><div class="info"><div class="tok">--bg-tertiary</div><div class="hex">#1A1D26</div></div></div>
+    <div class="sw"><div class="chip" style="background:#272A33"></div><div class="info"><div class="tok">--border-subtle</div><div class="hex">#272A33</div></div></div>
+  </div>
+</div>
+</body>
+</html>

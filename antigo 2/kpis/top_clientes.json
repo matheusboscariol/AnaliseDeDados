@@ -1,0 +1,72 @@
+[
+  {
+    "nome_cliente": "Srta. Yasmin Siqueira",
+    "estado": "PA",
+    "receita": 4990.78,
+    "receita_fmt": "R$ 4.990,78",
+    "pedidos": 8
+  },
+  {
+    "nome_cliente": "Isis Leão",
+    "estado": "CE",
+    "receita": 4921.76,
+    "receita_fmt": "R$ 4.921,76",
+    "pedidos": 3
+  },
+  {
+    "nome_cliente": "Alana Teixeira",
+    "estado": "MA",
+    "receita": 4838.67,
+    "receita_fmt": "R$ 4.838,67",
+    "pedidos": 2
+  },
+  {
+    "nome_cliente": "Heitor Nunes",
+    "estado": "MS",
+    "receita": 4397.7,
+    "receita_fmt": "R$ 4.397,70",
+    "pedidos": 3
+  },
+  {
+    "nome_cliente": "Sr. Luan Vargas",
+    "estado": "RS",
+    "receita": 4339.99,
+    "receita_fmt": "R$ 4.339,99",
+    "pedidos": 2
+  },
+  {
+    "nome_cliente": "Tatiane Melo",
+    "estado": "RJ",
+    "receita": 3486.77,
+    "receita_fmt": "R$ 3.486,77",
+    "pedidos": 6
+  },
+  {
+    "nome_cliente": "Melissa Pastor",
+    "estado": "AC",
+    "receita": 2735.57,
+    "receita_fmt": "R$ 2.735,57",
+    "pedidos": 3
+  },
+  {
+    "nome_cliente": "Srta. Amanda Santos",
+    "estado": "MS",
+    "receita": 1982.07,
+    "receita_fmt": "R$ 1.982,07",
+    "pedidos": 5
+  },
+  {
+    "nome_cliente": "Bruno Novaes",
+    "estado": "PA",
+    "receita": 1750.77,
+    "receita_fmt": "R$ 1.750,77",
+    "pedidos": 3
+  },
+  {
+    "nome_cliente": "Maria Cecília Oliveira",
+    "estado": "AM",
+    "receita": 1669.7,
+    "receita_fmt": "R$ 1.669,70",
+    "pedidos": 2
+  }
+]

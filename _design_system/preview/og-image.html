@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage {
+    position: relative;
+    aspect-ratio: 1200 / 630;
+    border: 1px solid #272A33;
+    border-radius: 12px;
+    background: #0A0B0F;
+    overflow: hidden;
+    padding: 32px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(37,99,235,0.12), transparent 60%);
+  }
+  .stage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at 30% 70%, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 70%, black, transparent 70%);
+  }
+  .stage > * { position: relative; z-index: 1; }
+  .title { font-size: 28px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; max-width: 80%; }
+  .title .ac { color: #60A5FA; }
+  .meta { display: flex; justify-content: space-between; align-items: flex-end; font-family: 'Geist Mono', monospace; font-size: 11px; color: #71747E; text-transform: uppercase; letter-spacing: 0.06em; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #A1A4AE; font-size: 12px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; box-shadow: 0 0 12px rgba(37,99,235,0.6); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">01 ·</span> Open Graph · 1200×630</div>
+  <div class="stage">
+    <div class="brand"><span class="dot"></span>matheusboscariol.com.br</div>
+    <div class="title">Da estratégia à execução: <br/>marketing, processos e <span class="ac">IA</span> para PMEs em crescimento.</div>
+    <div class="meta"><span>Consultoria · Marketing · Tecnologia · IA</span><span>Matheus Boscariol</span></div>
+  </div>
+</div>
+</body>
+</html>

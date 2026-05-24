@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    background: #1A1D26;
+    border: 1px solid #272A33;
+    color: #A1A4AE;
+  }
+  .ball { width: 8px; height: 8px; border-radius: 50%; }
+  .hex { font-family: 'Geist Mono', monospace; font-size: 10px; color: #71747E; margin-left: 6px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">02 ·</span> Semantic feedback colors</div>
+  <div class="row">
+    <span class="pill"><span class="ball" style="background:#10B981"></span> success <span class="hex">#10B981</span></span>
+    <span class="pill"><span class="ball" style="background:#F59E0B"></span> warning <span class="hex">#F59E0B</span></span>
+    <span class="pill"><span class="ball" style="background:#EF4444"></span> error <span class="hex">#EF4444</span></span>
+    <span class="pill"><span class="ball" style="background:#60A5FA"></span> info <span class="hex">#60A5FA</span></span>
+  </div>
+  <div class="sub" style="font-size:13px; line-height:1.6; max-width:560px;">
+    Used sparingly, only for status communication — never as decoration. Feedback colors never appear in headings, CTAs, or branding.
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+/* Shared card chrome for design system preview cards.
+   Cards target ~700×variable px and render inside the Design System tab.
+   They live on a dark bg; minimal framing — content is the showcase. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #0A0B0F;
+  color: #F5F6F8;
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+.card {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100%;
+}
+
+.mono   { font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; }
+.muted  { color: #71747E; }
+.sub    { color: #A1A4AE; }
+.accent { color: #60A5FA; }
+
+.eyebrow {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #71747E;
+}

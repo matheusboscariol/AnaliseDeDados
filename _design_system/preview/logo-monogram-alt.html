@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(37,99,235,0.10), transparent 60%),
+      #0A0B0F;
+    border: 1px solid #272A33;
+    border-radius: 12px;
+    padding: 40px 24px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent 80%);
+    pointer-events: none;
+  }
+  .stage img { position: relative; z-index: 1; width: 100%; max-width: 280px; }
+  .label { font-family: 'Geist Mono', monospace; font-size: 11px; color: #71747E; text-transform: uppercase; letter-spacing: 0.06em; display: flex; justify-content: space-between; margin-top: 12px; }
+  .label .right { color: #A1A4AE; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow"><span class="accent">01 ·</span> Alternative concept · geometric monogram</div>
+  <div class="stage">
+    <img src="../assets/logo-monogram-msb.svg" alt="MSB monogram alt" />
+  </div>
+  <div class="label"><span>Concept 1 · M · S · B stacked</span><span class="right">backup direction · pipeline is primary</span></div>
+</div>
+</body>
+</html>
