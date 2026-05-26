@@ -51,7 +51,7 @@ Cadastros de 2022-12 a 2025-05. Estados com mais clientes: AM, MG e CE (3 client
 Resumo:
 - Receita total: R$ 50.169,43
 - Canal `ecommerce`: 47 vendas / R$ 28.805
-- Canal `loja_física`: 33 vendas / R$ 21.363
+- Canal `loja_fisica`: 33 vendas / R$ 21.363
 
 ### `preco_competidores` (48 linhas)
 

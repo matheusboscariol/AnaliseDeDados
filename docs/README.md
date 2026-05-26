@@ -6,10 +6,10 @@ Dashboard analítico para acompanhamento de vendas, pricing competitivo e compor
 
 ## Seções
 
+- **Hub** (`/`): cards de entrada para as três visões executivas.
 - **Vendas & Receita** (`/dashboard/vendas`): receita, ticket médio, mix por canal, top produtos e categorias.
 - **Pricing & Margem** (`/dashboard/pricing`): comparação contra concorrentes, índice de competitividade, oportunidades de repricing.
 - **Clientes & Comportamento** (`/dashboard/clientes`): base de clientes, ativação, distribuição geográfica, LTV.
-- **Dashboard principal** (`/dashboard`): visão consolidada com KPIs-chave das três seções.
 
 ## Stack
 
@@ -36,7 +36,7 @@ Dashboard analítico para acompanhamento de vendas, pricing competitivo e compor
 ```bash
 npm install
 npm run dev
-# abrir http://localhost:3000/dashboard
+# abrir http://localhost:3000
 ```
 
 Detalhes em [setup.md](./setup.md).

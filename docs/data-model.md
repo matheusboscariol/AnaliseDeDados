@@ -54,7 +54,7 @@ type Venda = {
   data_venda: string
   id_cliente: string
   id_produto: string
-  canal_venda: 'ecommerce' | 'loja_física'
+  canal_venda: 'ecommerce' | 'loja_fisica'
   quantidade: number
   preco_unitario: number
 }

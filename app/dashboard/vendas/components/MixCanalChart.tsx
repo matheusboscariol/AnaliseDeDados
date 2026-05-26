@@ -18,6 +18,16 @@ const formatadorMoeda = new Intl.NumberFormat('pt-BR', {
   maximumFractionDigits: 0,
 })
 
+function humanizarCanal(raw: string): string {
+  if (!raw) return ''
+  return raw
+    .replace(/_/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ')
+}
+
 export function MixCanalChart({ data }: { data: FatiaCanal[] }) {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -31,9 +41,10 @@ export function MixCanalChart({ data }: { data: FatiaCanal[] }) {
           outerRadius={100}
           innerRadius={55}
           paddingAngle={2}
-          label={(entry: { canal?: string; percentual?: number }) =>
-            `${entry.canal ?? ''} ${(entry.percentual ?? 0).toFixed(0)}%`
-          }
+          label={(props: { name?: string; payload?: FatiaCanal }) => {
+            const pct = props.payload?.percentual ?? 0
+            return `${humanizarCanal(props.name ?? '')} ${pct.toFixed(0)}%`
+          }}
           labelLine={false}
         >
           {data.map((_, i) => (
@@ -47,11 +58,12 @@ export function MixCanalChart({ data }: { data: FatiaCanal[] }) {
             borderRadius: 8,
             color: '#F1F5F9',
           }}
-          formatter={(value: number) => formatadorMoeda.format(value)}
+          formatter={(value) => formatadorMoeda.format(Number(value))}
         />
         <Legend
           wrapperStyle={{ color: '#94A3B8', fontSize: 12 }}
           iconType="circle"
+          formatter={(value) => humanizarCanal(String(value))}
         />
       </PieChart>
     </ResponsiveContainer>

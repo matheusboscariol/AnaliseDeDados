@@ -50,7 +50,7 @@ export function TopProdutosChart({ data }: { data: TopProduto[] }) {
             borderRadius: 8,
             color: '#F1F5F9',
           }}
-          formatter={(value: number) => formatadorMoeda.format(value)}
+          formatter={(value) => formatadorMoeda.format(Number(value))}
         />
         <Bar dataKey="receita" radius={[0, 6, 6, 0]}>
           {data.map((_, i) => (

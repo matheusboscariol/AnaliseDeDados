@@ -112,22 +112,38 @@ export function calcularTopProdutos(vendas: VendaRow[], topN = 5): TopProduto[] 
     .slice(0, topN)
 }
 
+const formatadorHoraSP = new Intl.DateTimeFormat('pt-BR', {
+  timeZone: 'America/Sao_Paulo',
+  hour: '2-digit',
+  hour12: false,
+})
+
 export function calcularReceitaPorHora(vendas: VendaRow[]): ReceitaPorHora[] {
   const mapa = new Map<number, { receita: number; pedidos: number }>()
   for (const v of vendas) {
     if (!v.data_venda) continue
-    const hora = new Date(v.data_venda).getHours()
+    const horaStr = formatadorHoraSP.format(new Date(v.data_venda))
+    const hora = Number.parseInt(horaStr, 10)
+    if (Number.isNaN(hora)) continue
     const atual = mapa.get(hora) ?? { receita: 0, pedidos: 0 }
     atual.receita += valorVenda(v)
     atual.pedidos += 1
     mapa.set(hora, atual)
   }
-  const horas = Array.from(mapa.keys()).sort((a, b) => a - b)
-  return horas.map((h) => ({
-    hora: `${String(h).padStart(2, '0')}h`,
-    receita: mapa.get(h)!.receita,
-    pedidos: mapa.get(h)!.pedidos,
-  }))
+  if (mapa.size === 0) return []
+  const horas = Array.from(mapa.keys())
+  const minHora = Math.min(...horas)
+  const maxHora = Math.max(...horas)
+  const resultado: ReceitaPorHora[] = []
+  for (let h = minHora; h <= maxHora; h++) {
+    const dado = mapa.get(h) ?? { receita: 0, pedidos: 0 }
+    resultado.push({
+      hora: `${String(h).padStart(2, '0')}h`,
+      receita: dado.receita,
+      pedidos: dado.pedidos,
+    })
+  }
+  return resultado
 }
 
 export function calcularReceitaPorCategoria(vendas: VendaRow[]): ReceitaPorCategoria[] {

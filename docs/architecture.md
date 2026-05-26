@@ -66,7 +66,35 @@ Cada especialista é dono exclusivo dos arquivos de sua seção:
 
 - `clientes` (35 rows): id, nome, segmento, cidade, estado, idade, etc.
 - `produtos` (45 rows): id, nome, categoria, preco_custo, preco_venda, etc.
-- `vendas` (80 rows, todas em 2025-12-13): id, cliente_id, produto_id, quantidade, preco_unitario, valor_total, canal (ecommerce | loja_física)
+- `vendas` (80 rows, todas em 2025-12-13): id, cliente_id, produto_id, quantidade, preco_unitario, valor_total, canal (ecommerce | loja_fisica)
 - `preco_competidores` (48 rows): produto_id, competidor, preco, data_coleta
 
 RLS habilitado em todas; policies SELECT para anon já criadas na Fase 1.
+
+---
+
+## Seções implementadas
+
+### Vendas & Receita
+
+**Arquivos**
+
+```
+app/dashboard/vendas/
+  page.tsx                                 # Client Component
+  components/
+    MixCanalChart.tsx
+    ReceitaPorHoraChart.tsx
+    TopProdutosChart.tsx
+    ReceitaPorCategoriaChart.tsx
+app/lib/queries/vendas.ts                  # fetch + funções puras de agregação
+```
+
+**Fluxo de dados**
+
+1. `page.tsx` chama `fetchVendasComProdutos()` no `useEffect` (uma única query Supabase com embed em `produtos`).
+2. As linhas (`VendaRow[]`) ficam em `useState`; um `useMemo` deriva todas as visões (`calcularResumo`, `calcularMixCanal`, `calcularTopProdutos`, `calcularReceitaPorHora`, `calcularReceitaPorCategoria`).
+3. Cada visão alimenta um componente próprio em `./components/`. KPIs vão direto nos `KPICard`.
+4. Loading: `rows === null` → `<LoadingSpinner />`. Vazio por gráfico: `<EmptyState />` quando a agregação retorna `[]`.
+
+Detalhes de cálculo e ressalvas em [kpis.md](./kpis.md#seção-vendas--receita).

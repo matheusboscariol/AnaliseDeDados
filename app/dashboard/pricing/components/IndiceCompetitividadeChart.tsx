@@ -53,7 +53,10 @@ export function IndiceCompetitividadeChart({ data }: Props) {
             borderRadius: '8px',
             color: '#F1F5F9',
           }}
-          formatter={(value: number) => [`${value > 0 ? '+' : ''}${value}%`, 'Índice vs concorrente']}
+          formatter={(value) => {
+            const n = Number(value)
+            return [`${n > 0 ? '+' : ''}${n}%`, 'Índice vs concorrente']
+          }}
           labelFormatter={(_, payload) => {
             const item = payload?.[0]?.payload
             return item ? `${item.nomeCompleto} (${item.categoria})` : ''

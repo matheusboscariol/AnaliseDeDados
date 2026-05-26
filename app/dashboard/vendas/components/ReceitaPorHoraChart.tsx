@@ -45,10 +45,10 @@ export function ReceitaPorHoraChart({ data }: { data: ReceitaPorHora[] }) {
             borderRadius: 8,
             color: '#F1F5F9',
           }}
-          formatter={(value: number, name: string) =>
+          formatter={(value, name) =>
             name === 'receita'
-              ? [formatadorMoeda.format(value), 'Receita']
-              : [value, 'Pedidos']
+              ? [formatadorMoeda.format(Number(value)), 'Receita']
+              : [String(value), 'Pedidos']
           }
         />
         <Area

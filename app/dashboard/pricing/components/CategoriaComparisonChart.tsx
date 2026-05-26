@@ -52,9 +52,10 @@ export function CategoriaComparisonChart({ data }: Props) {
             borderRadius: '8px',
             color: '#F1F5F9',
           }}
-          formatter={(value: number | null, name: string) => {
-            if (value === null) return ['Sem concorrente', name]
-            return [`R$ ${value.toLocaleString('pt-BR')}`, name]
+          formatter={(value, name) => {
+            if (value === null || value === undefined)
+              return ['Sem concorrente', name as string]
+            return [`R$ ${Number(value).toLocaleString('pt-BR')}`, name as string]
           }}
           cursor={{ fill: '#1E1E2E', opacity: 0.4 }}
         />

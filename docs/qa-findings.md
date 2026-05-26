@@ -22,7 +22,14 @@ Status:
 
 | # | Seção | Problema | Severidade | Owner | Status |
 |---|-------|----------|------------|-------|--------|
-| — | — | _(nenhum achado reportado até o momento)_ | — | — | — |
+| 1 | Vendas | Normalização de fuso em `calcularReceitaPorHora`: usar `Intl.DateTimeFormat` com `timeZone: 'America/Sao_Paulo'` para evitar deslocamento por fuso do browser. | Média | vendas | Resolvido |
+| 2 | Vendas | Humanização do label/legenda no `MixCanalChart` (ex.: `loja_fisica` → `Loja Fisica`) para apresentação consistente. | Baixa | vendas | Resolvido |
+| 3 | Vendas | Preencher horas sem venda na série (`receita: 0, pedidos: 0`) para o gráfico não “pular” intervalos. | Baixa | vendas | Resolvido |
+| 4 | Vendas | KPI Unidades: quando não há pedidos, exibir `—` (em vez de `0.0 por pedido`). | Baixa | vendas | Resolvido |
+| 5 | Vendas | Moeda: padronizar formatação (receita total com 2 casas como demais KPIs monetários). | Baixa | vendas | Resolvido |
+| 6 | Clientes | Evitar divisão por zero no indicador de ativação (`totalCadastrados > 0` antes de dividir). | Média | clientes | Resolvido |
+| 7 | Clientes | Empty state de categorias via componente `<EmptyState>` do design system. | Baixa | clientes | Resolvido |
+| 8 | Docs | Padronizar docs para `loja_fisica` (sem cedilha) como valor de `canal_venda`. | Baixa | lider | Resolvido |
 
 ## Notas de contexto
 

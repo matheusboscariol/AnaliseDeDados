@@ -4,7 +4,14 @@
 
 - Node.js 18+ (recomendado 20+)
 - npm (vem com o Node) ou pnpm/yarn equivalente
-- Acesso ao projeto Supabase `nmehophblsjjpcgreqzl`
+- Conta Supabase com acesso ao projeto `nmehophblsjjpcgreqzl`
+
+## Clone
+
+```bash
+git clone <url-do-repo>
+cd "6. Projeto 2"
+```
 
 ## Variáveis de ambiente
 
@@ -48,13 +55,13 @@ npm run lint     # ESLint
 
 | Rota | Conteúdo |
 |------|----------|
-| `/dashboard` | Visão consolidada (integração final — Task #8) |
+| `/` | Hub com cards de entrada para as três seções |
 | `/dashboard/vendas` | Seção Vendas & Receita |
 | `/dashboard/pricing` | Seção Pricing & Margem |
 | `/dashboard/clientes` | Seção Clientes & Comportamento |
 
 ## Validação rápida
 
-Após `npm run dev`, abra http://localhost:3000/dashboard. Se a página carregar sem erro de "Missing Supabase env vars", o `.env.local` está OK.
+Após `npm run dev`, abra http://localhost:3000. Se o hub renderizar os três cards sem erro de "Missing Supabase env vars", o `.env.local` está OK.
 
 Se aparecerem erros de RLS (linhas em branco apesar de a query rodar), conferir [fase0-dados.md](./fase0-dados.md) — todas as policies SELECT para `anon` já foram criadas pelo líder na Fase 1.

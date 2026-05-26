@@ -16,7 +16,11 @@ const PALETTE = ['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4
 interface EstadoDatum {
   estado: string
   clientes: number
+  receita: number
 }
+
+const currency = (v: number) =>
+  v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
 
 export function EstadosBarChart({ data }: { data: EstadoDatum[] }) {
   return (
@@ -26,8 +30,18 @@ export function EstadosBarChart({ data }: { data: EstadoDatum[] }) {
         <XAxis dataKey="estado" stroke="#94A3B8" tick={{ fontSize: 12 }} />
         <YAxis stroke="#94A3B8" tick={{ fontSize: 12 }} allowDecimals={false} />
         <Tooltip
-          contentStyle={{ backgroundColor: '#111118', border: '1px solid #1E1E2E', borderRadius: 8, color: '#F1F5F9' }}
+          contentStyle={{
+            backgroundColor: '#111118',
+            border: '1px solid #1E1E2E',
+            borderRadius: 8,
+            color: '#F1F5F9',
+          }}
           cursor={{ fill: '#1E1E2E55' }}
+          formatter={(value, name) => {
+            const v = Number(value) || 0
+            if (name === 'clientes') return [`${v} cliente(s)`, 'Clientes']
+            return [currency(v), 'Receita']
+          }}
         />
         <Bar dataKey="clientes" radius={[6, 6, 0, 0]}>
           {data.map((_, i) => (

@@ -2,7 +2,7 @@
 
 Este documento é preenchido **incrementalmente** à medida que cada especialista (vendas, pricing, clientes) reporta a sua seção. Enquanto isso, registramos a estrutura e os KPIs candidatos esperados.
 
-> Status: **aguardando notificação das seções `vendas`, `pricing` e `clientes`.**
+> Status: **Vendas e Clientes concluídas.** Pricing aguardando notificação.
 
 ## Convenções
 
@@ -15,20 +15,37 @@ Este documento é preenchido **incrementalmente** à medida que cada especialist
 
 ## Seção Vendas & Receita
 
-> _Pendente — `vendas` ainda não notificou. Estrutura esperada abaixo._
+Página: `app/dashboard/vendas/page.tsx` (Client Component — fetch via `useEffect`, agregações via `useMemo`).
+Queries e cálculos puros: `app/lib/queries/vendas.ts`.
 
-KPIs candidatos:
+### KPIs (cards)
 
-| KPI | Fórmula | Fonte |
-|-----|---------|-------|
-| Receita Total | Σ `quantidade × preco_unitario` | `vendas` |
-| Ticket Médio | Receita Total ÷ nº de vendas | `vendas` |
-| Itens Vendidos | Σ `quantidade` | `vendas` |
-| Mix por Canal | Receita por `canal_venda` ÷ Receita Total | `vendas` |
-| Top Produtos | Σ receita por `id_produto`, ordenado desc | `vendas` + `produtos` |
-| Top Categorias | Σ receita por `categoria` | `vendas` + `produtos` |
+| KPI | Fórmula | Função | Formatação |
+|-----|---------|--------|------------|
+| Receita Total | Σ `quantidade × Number(preco_unitario)` | `calcularResumo` | BRL, 0 casas |
+| Ticket Médio | Receita Total ÷ nº de pedidos | `calcularResumo` | BRL, 2 casas |
+| Unidades Vendidas | Σ `quantidade` | `calcularResumo` | inteiro `pt-BR` (sub: unidades/pedido) |
+| Total de Pedidos | `vendas.length` | `calcularResumo` | inteiro `pt-BR` (sub: canal líder e %) |
 
-Confirmar com `vendas` quando a seção estiver pronta.
+### Gráficos
+
+| Gráfico | Fórmula | Função | Notas |
+|---------|---------|--------|-------|
+| Mix de Canal | Receita e pedidos por `canal_venda`, com `percentual = receita ÷ total` | `calcularMixCanal` | Ordenado por receita desc; canais `null` viram `'desconhecido'` |
+| Curva de Vendas por Hora | Receita e pedidos agrupados por `new Date(data_venda).getHours()` | `calcularReceitaPorHora` | Válido **só** porque todas as vendas são de 13/12/2025 — não usar como série diária/mensal |
+| Top 5 Produtos por Receita | Σ receita por `produtos.nome_produto` (fallback `id_produto`), top 5 | `calcularTopProdutos` | Join via `select('...produtos(nome_produto, categoria)')` |
+| Receita por Categoria | Σ receita por `produtos.categoria` | `calcularReceitaPorCategoria` | `null` → `'sem categoria'`; conjunto pode diferir do de `preco_competidores` (relevante para Pricing) |
+
+### Insight de rodapé
+
+Calculado direto na página: hora de pico (máximo de `receita` em `calcularReceitaPorHora`) e produto líder (primeiro item de `calcularTopProdutos`).
+
+### Detalhes de implementação
+
+- `preco_unitario` é convertido com `Number(...)` antes do cálculo para evitar concatenação de string (o Supabase pode retornar `numeric` como string).
+- Receita unitária por venda: `valorVenda(v) = (quantidade ?? 0) × Number(preco_unitario ?? 0)`.
+- Fonte única: `fetchVendasComProdutos` (uma query com embed em `produtos`); todas as agregações são puras sobre o array retornado.
+- Estados vazios: cada `ChartWrapper` cai em `<EmptyState />` quando a agregação retorna `[]`; a página inteira mostra `<LoadingSpinner />` enquanto `rows === null`.
 
 ---
 
@@ -52,18 +69,47 @@ KPIs candidatos:
 
 ## Seção Clientes & Comportamento
 
-> _Pendente — `clientes` ainda não notificou. Estrutura esperada abaixo._
+Página: `app/dashboard/clientes/page.tsx` (Client Component — 2 fetches paralelos no `useEffect`, agregações em `useMemo`).
+Queries e cálculos puros: `app/lib/queries/clientes.ts`.
 
-KPIs candidatos:
+### KPIs (cards superiores)
 
-| KPI | Fórmula | Fonte |
-|-----|---------|-------|
-| Base de Clientes | `count(distinct id_cliente)` em `clientes` | `clientes` |
-| Clientes Ativos | `count(distinct id_cliente)` em `vendas` | `vendas` |
-| Taxa de Ativação | Clientes Ativos ÷ Base de Clientes | ambos |
-| LTV Médio | Receita Total ÷ Clientes Ativos | `vendas` |
-| Distribuição por Estado | nº de clientes por `estado` | `clientes` |
-| Receita por Estado | Σ receita por `estado` (via join) | `vendas` + `clientes` |
+| KPI | Fórmula | Função | Formatação |
+|-----|---------|--------|------------|
+| Clientes Cadastrados | `clientes.length` | `calcularResumoClientes` | inteiro |
+| Clientes Ativos | nº de clientes com `totalPedidos > 0` | `calcularResumoClientes` | inteiro (sub: dormentes = cadastrados − ativos) |
+| Taxa de Recompra | nº de ativos com `totalPedidos > 1` ÷ ativos × 100 | `calcularResumoClientes` | percentual, 1 casa |
+| Ticket Médio por Cliente | Σ receita dos ativos ÷ nº de ativos | `calcularResumoClientes` | BRL, 0 casas |
+
+> **Ressalva crítica**: "Taxa de Recompra" aqui significa **2+ pedidos no mesmo dia 13/12/2025** — não retorno em datas distintas. Quando a base ganhar histórico temporal, redefinir.
+
+### Gráficos e tabela
+
+| Visão | Fórmula | Função | Notas |
+|-------|---------|--------|-------|
+| Top 5 Clientes por Receita | Filtra ativos, ordena por `receitaTotal` desc, top 5 | `calcularTopClientes` | Barras horizontais |
+| Distribuição por Estado (Top 10) | nº de clientes e receita por `estado` (trim, `null` → `'N/D'`) | `calcularDistribuicaoEstados` | Top 10 explícito + agregado `'Outros'` quando há resto |
+| Canal Preferido | Conta clientes por `canalPreferido` (canal com mais pedidos do cliente) | `calcularCanalPreferido` | Pie: ecommerce vs loja_fisica |
+| Categorias Mais Compradas | Σ `quantidade` e Σ `receita` por `produtos.categoria` em vendas | `fetchCategoriasMaisCompradas` | Tabela com barra relativa de unidades; fetch independente |
+
+> **Ressalva crítica**: a distribuição por estado tem base pequena (35 clientes em ~20 UFs, média ~1,75 por UF). Ler como **mapa de presença**, não como tamanho de mercado.
+
+### Insights extras (cards inferiores)
+
+| Card | Definição |
+|------|-----------|
+| Cliente Mais Antigo Ativo | Ativo (com `data_cadastro`) de menor `data_cadastro` |
+| Cliente Mais Novo Ativo | Ativo (com `data_cadastro`) de maior `data_cadastro` |
+
+Mostram nome, data formatada `dd/mm/aaaa` e UF.
+
+### Detalhes de implementação
+
+- `fetchClientesComVendas` faz **2 fetches em paralelo** (`Promise.all`: `clientes` + `vendas` com embed em `produtos`) e cruza em memória — para cada cliente devolve `totalPedidos`, `receitaTotal`, `canalPreferido` e lista de `categoriasCompradas`.
+- `valorVenda` igual ao da seção Vendas: `(quantidade ?? 0) × Number(preco_unitario ?? 0)`.
+- `canalPreferido` é o canal com mais pedidos do cliente (empate → primeiro encontrado, `null` se não houver pedidos).
+- Categorias do cliente formam um `Set` ordenado.
+- Loading: enquanto `clientes` ou `categorias` for `null`, página inteira renderiza `<LoadingSpinner />`.
 
 ---
 
